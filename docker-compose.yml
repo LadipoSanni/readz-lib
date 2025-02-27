@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend_api
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - backend
+    environment:
+      - DJANGO_SETTINGS_MODULE=frontend_api.settings
+    volumes:
+      - ./frontend_api:/app
+
+  backend:
+    build:
+      context: ./backend_api
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8001"
+    environment:
+      - DJANGO_SETTINGS_MODULE=backend_api.settings
+    volumes:
+      - ./backend_api:/app
